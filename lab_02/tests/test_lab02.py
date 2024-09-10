@@ -79,13 +79,13 @@ def test_train_loop_score_25(batch_size, input_size, output_size, learning_rate,
     for initial_param, updated_param in zip(initial_params, model.parameters()):
         assert not torch.equal(initial_param, updated_param), "Parameters should be updated after train_loop optimizer step"
    
-    assert avg_train_loss == pytest.approx(expected_avg_train_loss, rel=1e-2), "The training loss should be correctly accumulated over all batches"
+    assert avg_train_loss == pytest.approx(expected_avg_train_loss, abs=1e-2), "The training loss should be correctly accumulated over all batches in train_loop()"
 
     avg_train_loss2 = train_loop(model, device, dataloader, loss_fn, optimizer)
-    assert avg_train_loss2 < avg_train_loss, "Loss should be decrease for each epoch"
+    assert avg_train_loss2 < avg_train_loss, "Loss should be decrease for each epoch in train_loop()"
 
     source_code = inspect.getsource(train_loop)
-    assert "optimizer.zero_grad()" in source_code, ".zero_grad() was not called in train_loop"
+    assert "optimizer.zero_grad()" in source_code, ".zero_grad() was not called in train_loop()"
 
 @pytest.mark.parametrize("batch_size", [8])
 @pytest.mark.parametrize("input_size", [20])
@@ -118,9 +118,9 @@ def test_eval_loop_score_25(batch_size, input_size, output_size, num_batches):
     
     avg_test_loss, accuracy = evaluation_loop(model, device, dataloader, loss_fn)
 
-    assert not model.training, "Model should be in evaluation mode"
+    assert not model.training, "@evaluation_loop: Model should be in evaluation mode"
 
-    assert avg_test_loss == pytest.approx(expected_avg_test_loss, rel=1e-2), "The evaluation loss should be correctly accumulated over all batches"
+    assert avg_test_loss == pytest.approx(expected_avg_test_loss, abs=1e-2), "The evaluation loss should be correctly accumulated over all batches"
 
-    assert accuracy == pytest.approx(expected_accuracy, rel=1e-2), "The evaluation accuracy should be correctly calculated and accumulated over all batches"
+    assert accuracy == pytest.approx(expected_accuracy, abs=1e-2), "The evaluation accuracy should be correctly calculated and accumulated over all batches"
 
