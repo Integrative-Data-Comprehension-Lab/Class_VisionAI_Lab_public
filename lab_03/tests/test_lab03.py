@@ -61,7 +61,7 @@ def test_wandb_score_25():
     source_code = inspect.getsource(train_main_MLP)
     assert "wandb.finish()" in source_code, "wandb.finish() was not called in train_main_MLP()"
 
-def test_cnn_score_50():
+def test_cnn_score_25():
     torch.manual_seed(0)  # For reproducibility
     input_tensor = torch.rand(4, 1, 28, 28)  # Example input (batch_size, channels, height, width)
 
@@ -88,3 +88,23 @@ def test_cnn_score_50():
 
         assert output.shape == (4, 10), "Output shape of SimpleCNN is not what expected"
 
+def test_gitignore_score_25():
+    # Path to the .gitignore file
+    gitignore_path = "../.gitignore"
+    
+    # Initialize flags for checking if both entries exist at the start of a line
+    wandb_found = False
+    checkpoints_found = False
+    
+    # Open the .gitignore file and check line-by-line
+    with open(gitignore_path, 'r') as f:
+        for line in f:
+            stripped_line = line.strip()  # Remove any leading/trailing whitespaces
+            if stripped_line == 'wandb':
+                wandb_found = True
+            if stripped_line == 'checkpoints':
+                checkpoints_found = True
+    
+    # Assert that both 'wandb' and 'checkpoints' are found at the start of lines
+    assert wandb_found, "'wandb' not found in .gitignore"
+    assert checkpoints_found, "'checkpoints' not found in .gitignore"
