@@ -23,7 +23,8 @@ def test_custom_dataset_score_25():
         4 : [torch.Size([3, 900, 1200]), 1459332.75, 1],
         5 : [torch.Size([3, 900, 742]), 893281.3125, 0],
     }
-    for i, (X, y) in enumerate(custom_datset):
+    for i in range(len(custom_datset)):
+        X, y = custom_datset[i]
         test_shape, test_sum, test_label = test_vals[i]
         assert X.shape == test_shape, f"CustomImageDataset {i}-th image data is not correct"
         assert X.sum().item() == pytest.approx(test_sum, abs=1e-2), f"CustomImageDataset {i}-th image data is not correct"
@@ -42,7 +43,8 @@ def test_custom_dataset_score_25():
         3 : [torch.Size([3, 900, 1200]), 1459332.75, 1],
         4 : [torch.Size([3, 900, 742]), 893281.3125, 0],
     }
-    for i, (X, y) in enumerate(custom_datset):
+    for i in range(len(custom_datset)):
+        X, y = custom_datset[i]
         test_shape, test_sum, test_label = test_vals[i]
         assert X.shape == test_shape, f"CustomImageDataset {i}-th image data is not correct"
         assert X.sum().item() == pytest.approx(test_sum, abs=1e-2), f"CustomImageDataset {i}-th image data is not correct"
