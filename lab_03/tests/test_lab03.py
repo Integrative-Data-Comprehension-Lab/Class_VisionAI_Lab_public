@@ -102,9 +102,9 @@ def test_gitignore_score_25():
     with open(gitignore_path, 'r') as f:
         for line in f:
             stripped_line = line.strip()  # Remove any leading/trailing whitespaces
-            if stripped_line == 'wandb':
+            if stripped_line.startswith('wandb'):
                 wandb_found = True
-            if stripped_line == 'checkpoints':
+            if stripped_line.startswith('checkpoints'):
                 checkpoints_found = True
     
     # Assert that both 'wandb' and 'checkpoints' are found at the start of lines
