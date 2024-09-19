@@ -27,7 +27,7 @@ def test_custom_dataset_score_25():
         X, y = custom_datset[i]
         test_shape, test_sum, test_label = test_vals[i]
         assert X.shape == test_shape, f"CustomImageDataset {i}-th image data is not correct"
-        assert X.sum().item() == pytest.approx(test_sum, abs=1e-2), f"CustomImageDataset {i}-th image data is not correct"
+        assert X.sum().item() == pytest.approx(test_sum, rel=1e-4), f"CustomImageDataset {i}-th image data is not correct"
         assert test_label == y, f"CustomImageDataset {i}-th label is not correct"
 
 
@@ -47,7 +47,7 @@ def test_custom_dataset_score_25():
         X, y = custom_datset[i]
         test_shape, test_sum, test_label = test_vals[i]
         assert X.shape == test_shape, f"CustomImageDataset {i}-th image data is not correct"
-        assert X.sum().item() == pytest.approx(test_sum, abs=1e-2), f"CustomImageDataset {i}-th image data is not correct"
+        assert X.sum().item() == pytest.approx(test_sum, rel=1e-4), f"CustomImageDataset {i}-th image data is not correct"
         assert test_label == y, f"CustomImageDataset {i}-th label is not correct"
 
 
